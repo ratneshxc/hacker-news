@@ -9,6 +9,9 @@
     "author": "",
     "license": "MIT",
     "description": "",
+    "engines": {
+      "node": "12.11.1"
+      },
     "babel": {
       "presets": [
         "@babel/preset-env",
