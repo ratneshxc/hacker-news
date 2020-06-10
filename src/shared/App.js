@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NoMatch from './NoMatch';
 import Home from './Home';
@@ -10,7 +11,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-           <Route path={'/'} exact render={() => (
+           <Route path={'/'} exact render={(props) => (
               <Home />
             )} />
             <Route path={'/news/:id'} exact render={(props) => (

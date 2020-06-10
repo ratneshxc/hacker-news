@@ -1,10 +1,10 @@
-import express from "express"
-import cors from "cors"
-import React from "react"
-import { renderToString } from "react-dom/server"
-import { StaticRouter, matchPath } from "react-router-dom"
-import serialize from "serialize-javascript"
-import App from '../shared/App'
+const express = require("express");
+const cors  = require("cors")
+const React  = require("react")
+const { renderToString }  = require("react-dom/server")
+const { StaticRouter, matchPath }  = require("react-router-dom")
+const serialize  = require("serialize-javascript")
+const App  = require('../shared/App').default;
 
 const app = express()
 
