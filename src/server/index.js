@@ -2,7 +2,7 @@ const express = require("express");
 const cors  = require("cors")
 const React  = require("react")
 const { renderToString }  = require("react-dom/server")
-const { StaticRouter, matchPath }  = require("react-router-dom")
+const StaticRouter = require("react-router/StaticRouter")
 const serialize  = require("serialize-javascript")
 const App  = require('../shared/App').default;
 
@@ -76,10 +76,3 @@ app.get("*", (req, res, next) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server is listening on port: 3000`)
 })
-
-/*
-  1) Just get shared App rendering to string on server then taking over on client.
-  2) Pass data to <App /> on server. Show diff. Add data to window then pick it up on the client too.
-  3) Instead of static data move to dynamic data (github gists)
-  4) add in routing.
-*/

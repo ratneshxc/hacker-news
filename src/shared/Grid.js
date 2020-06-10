@@ -61,7 +61,7 @@ class Grid extends Component {
       if(vote) {
         vote = parseInt(vote);
       }
-      if(item.item) {
+      if(item.title) {
         dataPoints.push({
          label: `${item.objectID}`,
          y: vote
