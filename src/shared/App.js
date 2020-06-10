@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-           <Route path={'/'} exact render={(props) => (
+           <Route path={'/'} exact render={() => (
               <Home />
             )} />
             <Route path={'/news/:id'} exact render={(props) => (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import TableRow from './TableRow';
 
 class Grid extends Component {
   constructor(props) {
@@ -25,13 +26,18 @@ class Grid extends Component {
     if (!this.state.repos) {
       this.fetchRepos(this.props.match.params.id)
     }
+    
   }
+  
   componentDidUpdate (prevProps, prevState) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.fetchRepos(this.props.match.params.id)
     }
   }
-  fetchRepos (id) {
+  
+ 
+
+   fetchRepos (id) {
     this.setState(() => ({
       loading: true
     }))
@@ -39,46 +45,61 @@ class Grid extends Component {
     this.props.fetchInitialData(id)
       .then((repos) => { this.setState(() => ({
         repos,
+        data: repos,
         loading: false,
         pageNext: repos.nbPage === repos.page ? repos.page: repos.page + 1,
         pagePrevious: repos.page === 1 ? repos.page : repos.page -1
-      }))
-      let chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        theme: "light",
-        axisY:{
-          includeZero: false
-        },
-        axisX:{
-          includeZero: false
-        },
-        data: [{        
-          type: "line",
-              indexLabelFontSize: 16,
-          dataPoints: [
-            { y: 450, x:10  },
-            { y: 414, x:20},
-            { y: 520, x:30 },
-            { y: 460 , x:40 },
-            { y: 450, x:50  },
-            { y: 500, x:60  },
-            { y: 480, x:70  },
-            { y: 480, x:80  },
-            { y: 410, x:90   },
-            { y: 500, x:100  },
-            { y: 480, x:110  },
-            { y: 510, x:120  }
-          ]
-        }]
-      });
-      chart.render();
+      }));
+    this.changeLineChart(repos);
     })
   }
+
+   changeLineChart(repos) {
+    let dataPoints = [];
+    repos.hits.map(item => {
+      let vote = localStorage.getItem(`${item.objectID}`)
+      if(vote) {
+        vote = parseInt(vote);
+      }
+      dataPoints.push({
+       label: `${item.objectID}`,
+       y: vote
+      })
+    })
+    let chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      axisY:[
+        {
+          title: "Vote",
+          lineColor: "#369EAD",
+          tickColor: "#369EAD",
+          labelFontColor: "#369EAD",
+          titleFontColor: "#369EAD",
+        }],
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer"
+      },
+      data: [{        
+        type: "line",
+        name: "ID",
+        color: "#369EAD",
+        showInLegend: true,
+        axisYIndex: 1,
+        dataPoints: dataPoints
+      }]
+    });
+    chart.render();
+  }
+  
+  
   render() {
     const { loading, repos, pageNext, pagePrevious } = this.state
 
     if (loading === true) {
-      return <p>LOADING</p>
+      return <p>LOADING...</p>
     }
 
     return (
@@ -92,16 +113,20 @@ class Grid extends Component {
         </tr>
         {repos.hits.map(item => 
         item.title? (
-        <tr>
-          <td>{item.num_comments}</td>
-          <td></td>
-          <td></td>
-          <td>{item.title}</td>
-        </tr>): ''
+          <TableRow 
+            rowData={item}
+            changeLineChart={this.changeLineChart}
+            repos={repos}
+             />
+        ): ''
         )}
       </table>
-      <div>
-      <NavLink activeStyle={{fontWeight: 'bold'}} to={`/news/${pagePrevious}`}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        margin: 10
+      }}>
+      <NavLink activeStyle={{fontWeight: 'bold', marginRight: 8}} to={`/news/${pagePrevious}`}>
             {'Previous'}
     </NavLink>
     <NavLink activeStyle={{fontWeight: 'bold'}} to={`/news/${pageNext}`}>
