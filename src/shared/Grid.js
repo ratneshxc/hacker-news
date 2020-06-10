@@ -61,10 +61,12 @@ class Grid extends Component {
       if(vote) {
         vote = parseInt(vote);
       }
-      dataPoints.push({
-       label: `${item.objectID}`,
-       y: vote
-      })
+      if(item.item) {
+        dataPoints.push({
+         label: `${item.objectID}`,
+         y: vote
+        })
+      }
     })
     let chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
@@ -126,15 +128,15 @@ class Grid extends Component {
         justifyContent: 'flex-end',
         margin: 10
       }}>
-      <NavLink activeStyle={{fontWeight: 'bold', marginRight: 8}} to={`/news/${pagePrevious}`}>
+        <NavLink activeStyle={{fontWeight: 'bold', marginRight: 8}} to={`/news/${pagePrevious}`}>
             {'Previous'}
-    </NavLink>
-    <NavLink activeStyle={{fontWeight: 'bold'}} to={`/news/${pageNext}`}>
-            {'Next'}
-    </NavLink>
+        </NavLink>
+        <NavLink activeStyle={{fontWeight: 'bold'}} to={`/news/${pageNext}`}>
+                {'Next'}
+        </NavLink>
       </div>
       <div>
-      <div id="chartContainer" style={{height: '300px', width: '100%' }}></div>
+        <div id="chartContainer" style={{height: '300px', width: '100%' }}></div>
       </div>
       </div>
     )
