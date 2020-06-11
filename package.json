@@ -36,7 +36,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "init": "^0.1.2",
     "isomorphic-fetch": "^2.2.1",
+    "npx": "^10.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "4.4.0-beta.8",
