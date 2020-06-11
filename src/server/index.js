@@ -2,7 +2,7 @@ const express = require("express");
 const cors  = require("cors")
 const React  = require("react")
 const { renderToString }  = require("react-dom/server")
-const StaticRouter = require("react-router/StaticRouter")
+const StaticRouter = require("react-router").StaticRouter
 const serialize  = require("serialize-javascript")
 const App  = require('../shared/App').default;
 
