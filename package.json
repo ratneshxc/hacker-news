@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack && nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "yarn install --production=false"
+    "heroku-prebuild": "npm install --production=false"
   },
   "author": "",
   "license": "MIT",
